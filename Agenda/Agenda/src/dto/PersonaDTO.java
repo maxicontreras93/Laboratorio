@@ -8,10 +8,10 @@ public class PersonaDTO
 	private String nombre;
 	private String telefono;
 	private String calle;
+	private String localidad;
 	private String altura;
 	private String piso;
 	private String depto;
-	private String localidad;
 	private String email;
 	private Date fnac;
 	private String tcont;
