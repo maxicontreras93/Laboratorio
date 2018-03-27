@@ -15,6 +15,7 @@ public class PersonaDTO
 	private String email;
 	private Date fnac;
 	private String tcont;
+	private char inicial;
 	
 	public PersonaDTO(int idPersona, String nombre, String telefono, String calle, String altura, String piso, String depto,
 			String localidad, String email, Date fnac, String tcont)
@@ -30,6 +31,7 @@ public class PersonaDTO
 		this.email = email;
 		this.fnac = fnac;
 		this.tcont = tcont;
+		setInicial();
 	}
 	
 	public String getTcont() {
@@ -125,6 +127,15 @@ public class PersonaDTO
 	{
 		this.telefono = telefono;
 	}
+	
+	public char getInicial() {
+		return inicial;
+	}
+
+	public void setInicial() {
+		this.inicial = this.nombre.charAt(0);
+	}
+
 	
 	
 }
