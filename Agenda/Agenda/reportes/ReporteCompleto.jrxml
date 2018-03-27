@@ -4,6 +4,8 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sample DB"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<style name="Title" fontName="Arial" fontSize="26" isBold="true"/>
 	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
@@ -47,7 +49,19 @@
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="50"/>
+			<band height="52">
+				<textField>
+					<reportElement x="430" y="10" width="100" height="20" uuid="4fb2b196-d408-4a17-a9bd-5e0ce7e62252"/>
+					<textFieldExpression><![CDATA[$V{Inicial_COUNT}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="347" y="10" width="73" height="20" uuid="e9af38be-116b-4773-97d3-0345ef5febc8"/>
+					<textElement textAlignment="Center">
+						<font size="11"/>
+					</textElement>
+					<text><![CDATA[Total:]]></text>
+				</staticText>
+			</band>
 		</groupFooter>
 	</group>
 	<background>
@@ -93,18 +107,18 @@
 				<text><![CDATA[Calle]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="330" y="10" width="108" height="21" uuid="e9af38be-116b-4773-97d3-0345ef5febc8"/>
-				<textElement textAlignment="Center">
-					<font size="14"/>
-				</textElement>
-				<text><![CDATA[Altura]]></text>
-			</staticText>
-			<staticText>
 				<reportElement x="440" y="10" width="108" height="21" uuid="92533bad-e23e-44ef-b555-ea053a2d8ea5"/>
 				<textElement textAlignment="Center">
 					<font size="14"/>
 				</textElement>
 				<text><![CDATA[Localidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="335" y="15" width="108" height="21" uuid="061def11-7095-4786-b06c-f6c858285488"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Altura]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -145,13 +159,29 @@
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="45" splitType="Stretch">
+		<band height="227" splitType="Stretch">
 			<line>
 				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="401e0e59-de38-4dd2-8257-418cb489177c"/>
 				<graphicElement>
 					<pen lineWidth="0.5" lineColor="#999999"/>
 				</graphicElement>
 			</line>
+			<pieChart>
+				<chart evaluationTime="Report">
+					<reportElement x="200" y="10" width="200" height="200" uuid="2741169f-a56c-40ed-9334-53d6b348468f"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset minPercentage="10.0">
+					<keyExpression><![CDATA[$F{inicial}]]></keyExpression>
+					<valueExpression><![CDATA[$V{Inicial_COUNT}]]></valueExpression>
+				</pieDataset>
+				<piePlot>
+					<plot/>
+					<itemLabel/>
+				</piePlot>
+			</pieChart>
 		</band>
 	</columnFooter>
 	<pageFooter>
