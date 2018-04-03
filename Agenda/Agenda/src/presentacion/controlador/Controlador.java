@@ -172,21 +172,49 @@ public class Controlador implements ActionListener
 				ReporteAgenda reporte = new ReporteAgenda(agenda.obtenerPersonas());
 				reporte.mostrar();				
 			}
-			
-			else if(this.ventanaPersona != null) {
-				if(e.getSource() == this.ventanaPersona.getBtnAgregarPersona())
+			else if (this.ventanaLocalidades != null)
 			{
-				String local = (String) this.ventanaPersona.getLocalidad().getSelectedItem();
-				String tcont = (String) this.ventanaPersona.getTipoCont().getSelectedItem();
-				java.util.Date utilStartDate = (java.util.Date) ventanaPersona.getFecha().getModel().getValue();
-				java.sql.Date date = new java.sql.Date(utilStartDate.getTime());
-				PersonaDTO nuevaPersona = new PersonaDTO(0,this.ventanaPersona.getTxtNombre().getText(), ventanaPersona.getTxtTelefono().getText(),
-						ventanaPersona.getTxtCalle().getText(), ventanaPersona.getTxtAltura().getText(), ventanaPersona.getTxtPiso().getText(),
-						ventanaPersona.getTxtDepto().getText(), local, ventanaPersona.getTxtEmail().getText(), date, tcont);
-				this.agenda.agregarPersona(nuevaPersona);
-				this.llenarTabla();
-				this.ventanaPersona.dispose();
+				if (e.getSource()  == this.ventanaLocalidades.getBtnAgregarLocalidad()) {
+				LocalidadesDTO nuevaLocalidad = new LocalidadesDTO(0, this.ventanaLocalidades.getTextLoca().getText());
+				this.localidades.agregarLocalidad(nuevaLocalidad);
+				this.llenarTablaLocalidades();
+				this.ventanaLocalidades.dispose();
+				this.ventanaLocalidades = null;
+				}
+				else if (e.getSource() == this.ventanaLocalidades.getBtnBorrarLocalidad())
+				{
+					int[] filas_seleccionadas = this.ventanaLocalidades.getTablaLocalidades().getSelectedRows();
+					for (int fila:filas_seleccionadas)
+					{
+						this.localidades.borrarLocalidad(this.localidades_en_tabla.get(fila));
+					}
+					this.llenarTablaLocalidades();
+					this.ventanaLocalidades.dispose();
+					this.ventanaLocalidades = null;
+				}
 			}
+			
+
+			else if (this.ventanaTipoContacto != null) { 
+				if (e.getSource() == this.ventanaTipoContacto.getBtnBorrarTipoContacto())
+			{
+				int[] filas_seleccionadas = this.ventanaTipoContacto.getTablaTipoContacto().getSelectedRows();
+				for (int fila:filas_seleccionadas)
+				{
+					this.tipoContacto.borrarTipoContacto(this.tcontacto_en_tabla.get(fila));
+				}
+				this.llenarTablaTipoContacto();
+				this.ventanaTipoContacto.dispose();
+				this.ventanaTipoContacto = null;
+			}
+				else if (e.getSource() == this.ventanaTipoContacto.getBtnAgregarTipoContacto())
+				{
+				TipoDeContactoDTO nuevoTipoContacto = new TipoDeContactoDTO(0, this.ventanaTipoContacto.getTxtTcon().getText());
+				this.tipoContacto.agregarTipoDeContacto(nuevoTipoContacto);
+				this.llenarTablaTipoContacto();
+				this.ventanaTipoContacto.dispose();
+				this.ventanaTipoContacto = null;
+				}
 			}
 			else if (this.ventanaEditar != null) {
 				if(e.getSource() == this.ventanaEditar.getBtnEditarPersona())
@@ -206,47 +234,28 @@ public class Controlador implements ActionListener
 				this.agenda.agregarPersona(nuevaPersona);
 				this.llenarTabla();
 				this.ventanaEditar.dispose();
+				this.ventanaEditar = null;
 				
 			}
 			}
-			else if (this.ventanaLocalidades != null)
+
+			
+			else if(e.getSource() == this.ventanaPersona.getBtnAgregarPersona())
 			{
-				if (e.getSource()  == this.ventanaLocalidades.getBtnAgregarLocalidad()) {
-				LocalidadesDTO nuevaLocalidad = new LocalidadesDTO(0, this.ventanaLocalidades.getTextLoca().getText());
-				this.localidades.agregarLocalidad(nuevaLocalidad);
-				this.llenarTablaLocalidades();
-				}
-				else if (e.getSource() == this.ventanaLocalidades.getBtnBorrarLocalidad())
-				{
-					int[] filas_seleccionadas = this.ventanaLocalidades.getTablaLocalidades().getSelectedRows();
-					for (int fila:filas_seleccionadas)
-					{
-						this.localidades.borrarLocalidad(this.localidades_en_tabla.get(fila));
-					}
-					this.llenarTablaLocalidades();
-				}
+				String local = (String) this.ventanaPersona.getLocalidad().getSelectedItem();
+				String tcont = (String) this.ventanaPersona.getTipoCont().getSelectedItem();
+				java.util.Date utilStartDate = (java.util.Date) ventanaPersona.getFecha().getModel().getValue();
+				java.sql.Date date = new java.sql.Date(utilStartDate.getTime());
+				PersonaDTO nuevaPersona = new PersonaDTO(0,this.ventanaPersona.getTxtNombre().getText(), ventanaPersona.getTxtTelefono().getText(),
+						ventanaPersona.getTxtCalle().getText(), ventanaPersona.getTxtAltura().getText(), ventanaPersona.getTxtPiso().getText(),
+						ventanaPersona.getTxtDepto().getText(), local, ventanaPersona.getTxtEmail().getText(), date, tcont);
+				this.agenda.agregarPersona(nuevaPersona);
+				this.llenarTabla();
+				this.ventanaPersona.dispose();
 			}
 			
 
-			else if (this.ventanaTipoContacto != null) { 
-				
-				if (e.getSource() == this.ventanaTipoContacto.getBtnBorrarTipoContacto())
-			{
-				int[] filas_seleccionadas = this.ventanaTipoContacto.getTablaTipoContacto().getSelectedRows();
-				for (int fila:filas_seleccionadas)
-				{
-					this.tipoContacto.borrarTipoContacto(this.tcontacto_en_tabla.get(fila));
-				}
-				this.llenarTablaTipoContacto();
-			}
-				else if (e.getSource() == this.ventanaTipoContacto.getBtnAgregarTipoContacto())
-				{
-				TipoDeContactoDTO nuevoTipoContacto = new TipoDeContactoDTO(0, this.ventanaTipoContacto.getTxtTcon().getText());
-				this.tipoContacto.agregarTipoDeContacto(nuevoTipoContacto);
-				this.llenarTablaTipoContacto();
-				}
-			}
-
+			
 
 			
 		}
